@@ -1,0 +1,14 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      // Basic rule: Allow authenticated users to read and write to their own folder
+      // Medicine images: medicines/{userId}/{imageId}
+      // Prescription images: prescriptions/{userId}/{imageId}
+      allow read, write: if request.auth != null && (
+        allPaths.startsWith("medicines/" + request.auth.uid + "/") ||
+        allPaths.startsWith("prescriptions/" + request.auth.uid + "/")
+      );
+    }
+  }
+}
