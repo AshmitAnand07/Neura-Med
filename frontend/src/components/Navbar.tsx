@@ -2,23 +2,32 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, LayoutDashboard, Pill, Mic, Settings, ScanLine } from 'lucide-react';
+import { 
+  Activity, 
+  LayoutDashboard, 
+  Pill, 
+  Mic, 
+  Settings, 
+  Scan, 
+  Maximize, 
+  Link as LinkIcon 
+} from 'lucide-react';
 import { useNeuraStore } from '../store';
 
 /**
  * Mobile-First NeuraMed Bottom/Top Navigation Tab Bar.
  * Clean, lightweight, floating style. 
  */
-export default function Navbar() {
+export const Navbar = () => {
   const pathname = usePathname();
   const toggleVoiceUI = useNeuraStore(state => state.toggleVoiceUI);
 
   const navLinks = [
-    { label: 'Home', href: '/', icon: Activity },
+    { label: 'Activity', href: '/dashboard?tab=activity', icon: Activity },
     { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { label: 'Scan', href: '/scanner', icon: ScanLine },
-    { label: 'Pills', href: '/medicines', icon: Pill },
-    { label: 'Config', href: '/settings', icon: Settings },
+    { label: 'Fullscreen', href: '/dashboard#full', icon: Maximize },
+    { label: 'Connect', href: '/dashboard#link', icon: LinkIcon },
+    { label: 'Settings', href: '/settings', icon: Settings },
   ];
 
   return (
@@ -42,12 +51,14 @@ export default function Navbar() {
               const Icon = link.icon;
               return (
                 <Link 
-                  key={link.href} 
+                  key={link.label} 
                   href={link.href} 
-                  className={`flex flex-col items-center group transition-colors ${isActive ? 'text-primary-600' : 'text-gray-400 hover:text-gray-900'}`}
+                  className={`flex flex-col items-center group transition-all duration-300 ${isActive ? 'text-emerald-600' : 'text-slate-400 hover:text-slate-900'}`}
                 >
-                  <Icon size={22} className={`mb-1 transition-transform group-hover:scale-110 ${isActive ? 'fill-primary-50' : ''}`} />
-                  <span className={`text-[11px] font-bold ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                  <div className={`p-2 rounded-xl transition-all duration-300 group-hover:bg-slate-50 group-hover:shadow-sm ${isActive ? 'bg-emerald-50 text-emerald-600 shadow-inner' : ''}`}>
+                    <Icon size={20} className={`transition-transform duration-300 group-hover:scale-110 ${isActive ? 'stroke-[2.5px]' : ''}`} />
+                  </div>
+                  <span className={`text-[10px] font-bold mt-1 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                      {link.label}
                   </span>
                 </Link>
@@ -68,7 +79,7 @@ export default function Navbar() {
               const Icon = link.icon;
               return (
                 <Link 
-                  key={link.href} 
+                  key={link.label} 
                   href={link.href} 
                   className={`flex flex-col items-center transition-colors ${isActive ? 'text-primary-600' : 'text-gray-400'}`}
                 >

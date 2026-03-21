@@ -116,11 +116,6 @@ class NeuraMedOrchestrator:
         risk = self.adherence_model.predict_proba(features)[0][1]
         return risk
 
-# Initialize Singleton Orchestrator
-orchestrator = NeuraMedOrchestrator()
-
-app = FastAPI(title="NeuraMed Unified AI Orchestrator")
-
 class InteractionAlertData(BaseModel):
     interaction: bool
     severity: str
@@ -136,16 +131,6 @@ class AiEvaluateResponse(BaseModel):
     adherence_risk: float
     recommended_action: str
 
-@app.post("/ai-evaluate", response_model=AiEvaluateResponse)
-async def ai_evaluate_endpoint(request: AiEvaluateRequest):
-    """Refactored Entrypoint using pre-loaded ML weights."""
-    try:
-        result = orchestrator.evaluate(request)
-        return AiEvaluateResponse(**result)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Orchestration Logic Failure: {str(e)}")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("ai_orchestrator:app", host="0.0.0.0", port=8002, reload=True)
+# Initialize Singleton Orchestrator
+orchestrator = NeuraMedOrchestrator()
 

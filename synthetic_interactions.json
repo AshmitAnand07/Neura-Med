@@ -1,32 +1,12 @@
 [
   {
     "drug1": "aspirin",
-    "drug2": "gabapentin",
-    "severity": "none"
-  },
-  {
-    "drug1": "lisinopril",
     "drug2": "metformin",
     "severity": "none"
   },
   {
-    "drug1": "albuterol",
-    "drug2": "clavulanate",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "atorvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "lisinopril",
-    "drug2": "warfarin",
+    "drug1": "hydrochlorothiazide",
+    "drug2": "tramadol",
     "severity": "none"
   },
   {
@@ -35,13 +15,58 @@
     "severity": "none"
   },
   {
-    "drug1": "aspirin",
+    "drug1": "atorvastatin",
     "drug2": "fluticasone",
     "severity": "none"
   },
   {
+    "drug1": "fluticasone",
+    "drug2": "gabapentin",
+    "severity": "none"
+  },
+  {
     "drug1": "albuterol",
-    "drug2": "lisinopril",
+    "drug2": "ibuprofen",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "hydrochlorothiazide",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "warfarin",
+    "severity": "medium"
+  },
+  {
+    "drug1": "fluticasone",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "ibuprofen",
+    "severity": "none"
+  },
+  {
+    "drug1": "ibuprofen",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "hydrochlorothiazide",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "fluticasone",
+    "drug2": "ibuprofen",
     "severity": "none"
   },
   {
@@ -50,108 +75,73 @@
     "severity": "none"
   },
   {
-    "drug1": "clavulanate",
-    "drug2": "hydrochlorothiazide",
+    "drug1": "citalopram",
+    "drug2": "sertraline",
     "severity": "none"
   },
   {
     "drug1": "aspirin",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "ibuprofen",
-    "drug2": "simvastatin",
-    "severity": "medium"
-  },
-  {
-    "drug1": "ibuprofen",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "losartan",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "simvastatin",
-    "drug2": "warfarin",
-    "severity": "low"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "warfarin",
+    "drug2": "citalopram",
     "severity": "none"
   },
   {
     "drug1": "citalopram",
-    "drug2": "hydrochlorothiazide",
-    "severity": "high"
-  },
-  {
-    "drug1": "losartan",
-    "drug2": "simvastatin",
-    "severity": "low"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "aspirin",
-    "severity": "none"
-  },
-  {
-    "drug1": "ibuprofen",
-    "drug2": "lisinopril",
-    "severity": "low"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "ibuprofen",
-    "severity": "none"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "ibuprofen",
-    "severity": "none"
-  },
-  {
-    "drug1": "hydrochlorothiazide",
     "drug2": "ibuprofen",
     "severity": "none"
   },
   {
     "drug1": "amoxicillin",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "metformin",
-    "severity": "low"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "atorvastatin",
+    "drug2": "ibuprofen",
     "severity": "low"
   },
   {
     "drug1": "azithromycin",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "simvastatin",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "atorvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "losartan",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "hydrochlorothiazide",
+    "severity": "high"
+  },
+  {
+    "drug1": "gabapentin",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "fluticasone",
+    "severity": "none"
+  },
+  {
+    "drug1": "clavulanate",
     "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "gabapentin",
+    "drug2": "simvastatin",
     "severity": "none"
   },
   {
@@ -160,74 +150,114 @@
     "severity": "none"
   },
   {
-    "drug1": "aspirin",
-    "drug2": "citalopram",
+    "drug1": "atorvastatin",
+    "drug2": "gabapentin",
     "severity": "none"
   },
   {
-    "drug1": "hydrochlorothiazide",
-    "drug2": "tramadol",
-    "severity": "low"
+    "drug1": "losartan",
+    "drug2": "simvastatin",
+    "severity": "none"
   },
   {
-    "drug1": "hydrochlorothiazide",
+    "drug1": "albuterol",
+    "drug2": "fluticasone",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
     "drug2": "warfarin",
     "severity": "none"
   },
   {
-    "drug1": "clavulanate",
+    "drug1": "fluticasone",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "ibuprofen",
     "drug2": "simvastatin",
-    "severity": "low"
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "hydrochlorothiazide",
+    "severity": "none"
   },
   {
     "drug1": "amoxicillin",
-    "drug2": "losartan",
+    "drug2": "lisinopril",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "ibuprofen",
+    "drug2": "sertraline",
+    "severity": "low"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "gabapentin",
+    "severity": "low"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "azithromycin",
     "severity": "none"
   },
   {
     "drug1": "azithromycin",
     "drug2": "lisinopril",
-    "severity": "medium"
+    "severity": "none"
   },
   {
-    "drug1": "amoxicillin",
+    "drug1": "sertraline",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "clavulanate",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
     "drug2": "metformin",
-    "severity": "medium"
-  },
-  {
-    "drug1": "metformin",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "gabapentin",
-    "severity": "low"
-  },
-  {
-    "drug1": "hydrochlorothiazide",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "metformin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "ibuprofen",
     "severity": "none"
   },
   {
     "drug1": "atorvastatin",
-    "drug2": "citalopram",
+    "drug2": "hydrochlorothiazide",
     "severity": "none"
   },
   {
-    "drug1": "gabapentin",
-    "drug2": "hydrochlorothiazide",
-    "severity": "low"
+    "drug1": "citalopram",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "atorvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "fluticasone",
+    "drug2": "lisinopril",
+    "severity": "none"
   },
   {
     "drug1": "clavulanate",
@@ -235,23 +265,38 @@
     "severity": "none"
   },
   {
-    "drug1": "amoxicillin",
+    "drug1": "hydrochlorothiazide",
+    "drug2": "warfarin",
+    "severity": "medium"
+  },
+  {
+    "drug1": "azithromycin",
+    "drug2": "clavulanate",
+    "severity": "none"
+  },
+  {
+    "drug1": "losartan",
     "drug2": "tramadol",
     "severity": "none"
   },
   {
-    "drug1": "amlodipine",
-    "drug2": "simvastatin",
+    "drug1": "losartan",
+    "drug2": "omeprazole",
     "severity": "none"
   },
   {
-    "drug1": "aspirin",
-    "drug2": "ibuprofen",
+    "drug1": "hydrochlorothiazide",
+    "drug2": "omeprazole",
     "severity": "none"
   },
   {
-    "drug1": "aspirin",
-    "drug2": "lisinopril",
+    "drug1": "citalopram",
+    "drug2": "fluticasone",
+    "severity": "none"
+  },
+  {
+    "drug1": "lisinopril",
+    "drug2": "sertraline",
     "severity": "none"
   },
   {
@@ -260,7 +305,287 @@
     "severity": "none"
   },
   {
+    "drug1": "metformin",
+    "drug2": "omeprazole",
+    "severity": "low"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "citalopram",
+    "severity": "medium"
+  },
+  {
+    "drug1": "tramadol",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "simvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "aspirin",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "clavulanate",
+    "severity": "high"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "lisinopril",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "aspirin",
+    "severity": "high"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "simvastatin",
+    "severity": "low"
+  },
+  {
+    "drug1": "lisinopril",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "gabapentin",
+    "drug2": "lisinopril",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "losartan",
+    "severity": "medium"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "citalopram",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "gabapentin",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
+    "drug2": "losartan",
+    "severity": "high"
+  },
+  {
     "drug1": "hydrochlorothiazide",
+    "drug2": "simvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "fluticasone",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "ibuprofen",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "atorvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "hydrochlorothiazide",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "lisinopril",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
+    "drug2": "omeprazole",
+    "severity": "medium"
+  },
+  {
+    "drug1": "hydrochlorothiazide",
+    "drug2": "ibuprofen",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "fluticasone",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "sertraline",
+    "severity": "low"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "citalopram",
+    "severity": "low"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "gabapentin",
+    "severity": "none"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "ibuprofen",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "gabapentin",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "sertraline",
+    "drug2": "simvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "lisinopril",
+    "severity": "none"
+  },
+  {
+    "drug1": "metformin",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "gabapentin",
+    "drug2": "warfarin",
+    "severity": "low"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "hydrochlorothiazide",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "ibuprofen",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
+    "drug2": "sertraline",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "omeprazole",
+    "severity": "none"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "metformin",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "lisinopril",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "simvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "ibuprofen",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "atorvastatin",
+    "severity": "medium"
+  },
+  {
+    "drug1": "atorvastatin",
     "drug2": "omeprazole",
     "severity": "none"
   },
@@ -270,28 +595,18 @@
     "severity": "none"
   },
   {
-    "drug1": "hydrochlorothiazide",
-    "drug2": "lisinopril",
-    "severity": "none"
+    "drug1": "amoxicillin",
+    "drug2": "clavulanate",
+    "severity": "medium"
   },
   {
     "drug1": "ibuprofen",
-    "drug2": "sertraline",
-    "severity": "high"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "warfarin",
-    "severity": "high"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "tramadol",
+    "drug2": "metformin",
     "severity": "none"
   },
   {
-    "drug1": "azithromycin",
-    "drug2": "ibuprofen",
+    "drug1": "metformin",
+    "drug2": "simvastatin",
     "severity": "none"
   },
   {
@@ -300,113 +615,53 @@
     "severity": "none"
   },
   {
-    "drug1": "omeprazole",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "lisinopril",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "simvastatin",
+    "drug1": "amlodipine",
+    "drug2": "aspirin",
     "severity": "low"
   },
   {
-    "drug1": "atorvastatin",
-    "drug2": "gabapentin",
-    "severity": "none"
-  },
-  {
-    "drug1": "aspirin",
+    "drug1": "ibuprofen",
     "drug2": "omeprazole",
-    "severity": "none"
+    "severity": "low"
   },
   {
-    "drug1": "albuterol",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "tramadol",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "sertraline",
-    "severity": "medium"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "gabapentin",
+    "drug1": "ibuprofen",
+    "drug2": "lisinopril",
     "severity": "none"
   },
   {
     "drug1": "amoxicillin",
+    "drug2": "simvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
     "drug2": "azithromycin",
-    "severity": "none"
-  },
-  {
-    "drug1": "simvastatin",
-    "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "ibuprofen",
-    "severity": "none"
-  },
-  {
-    "drug1": "citalopram",
-    "drug2": "ibuprofen",
-    "severity": "none"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "citalopram",
     "severity": "none"
   },
   {
     "drug1": "metformin",
     "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "losartan",
-    "drug2": "sertraline",
     "severity": "low"
   },
   {
-    "drug1": "citalopram",
-    "drug2": "gabapentin",
-    "severity": "low"
-  },
-  {
-    "drug1": "citalopram",
-    "drug2": "fluticasone",
+    "drug1": "azithromycin",
+    "drug2": "ibuprofen",
     "severity": "none"
   },
   {
-    "drug1": "amlodipine",
-    "drug2": "lisinopril",
+    "drug1": "fluticasone",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "fluticasone",
+    "drug2": "omeprazole",
     "severity": "none"
   },
   {
     "drug1": "gabapentin",
-    "drug2": "lisinopril",
+    "drug2": "hydrochlorothiazide",
     "severity": "none"
   },
   {
@@ -415,58 +670,43 @@
     "severity": "none"
   },
   {
-    "drug1": "fluticasone",
-    "drug2": "gabapentin",
+    "drug1": "clavulanate",
+    "drug2": "simvastatin",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "azithromycin",
     "severity": "low"
   },
   {
     "drug1": "amlodipine",
-    "drug2": "aspirin",
+    "drug2": "tramadol",
     "severity": "none"
   },
   {
     "drug1": "albuterol",
-    "drug2": "fluticasone",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "fluticasone",
-    "severity": "none"
-  },
-  {
-    "drug1": "citalopram",
     "drug2": "clavulanate",
     "severity": "none"
   },
   {
     "drug1": "hydrochlorothiazide",
-    "drug2": "sertraline",
+    "drug2": "lisinopril",
     "severity": "none"
   },
   {
-    "drug1": "citalopram",
+    "drug1": "aspirin",
+    "drug2": "clavulanate",
+    "severity": "none"
+  },
+  {
+    "drug1": "fluticasone",
+    "drug2": "hydrochlorothiazide",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
     "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "gabapentin",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "citalopram",
-    "drug2": "metformin",
-    "severity": "medium"
-  },
-  {
-    "drug1": "omeprazole",
-    "drug2": "tramadol",
     "severity": "none"
   },
   {
@@ -475,348 +715,113 @@
     "severity": "none"
   },
   {
-    "drug1": "gabapentin",
-    "drug2": "ibuprofen",
-    "severity": "none"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "ibuprofen",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "ibuprofen",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "hydrochlorothiazide",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "sertraline",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
     "drug1": "amlodipine",
-    "drug2": "hydrochlorothiazide",
-    "severity": "medium"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "metformin",
-    "severity": "medium"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "sertraline",
+    "drug2": "ibuprofen",
     "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "sertraline",
-    "severity": "medium"
   },
   {
     "drug1": "albuterol",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "lisinopril",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "metformin",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "gabapentin",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "metformin",
-    "severity": "none"
-  },
-  {
-    "drug1": "omeprazole",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "atorvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "gabapentin",
-    "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "sertraline",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "lisinopril",
+    "drug2": "omeprazole",
     "severity": "low"
   },
   {
-    "drug1": "citalopram",
-    "drug2": "omeprazole",
-    "severity": "high"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "azithromycin",
-    "severity": "none"
-  },
-  {
-    "drug1": "ibuprofen",
-    "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "gabapentin",
-    "drug2": "simvastatin",
+    "drug1": "amoxicillin",
+    "drug2": "fluticasone",
     "severity": "none"
   },
   {
     "drug1": "amlodipine",
     "drug2": "amoxicillin",
-    "severity": "none"
+    "severity": "medium"
   },
   {
     "drug1": "aspirin",
-    "drug2": "atorvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "hydrochlorothiazide",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
     "drug2": "tramadol",
     "severity": "none"
   },
   {
-    "drug1": "clavulanate",
-    "drug2": "lisinopril",
+    "drug1": "lisinopril",
+    "drug2": "losartan",
     "severity": "none"
   },
   {
     "drug1": "clavulanate",
+    "drug2": "hydrochlorothiazide",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
+    "drug2": "hydrochlorothiazide",
+    "severity": "low"
+  },
+  {
+    "drug1": "losartan",
     "drug2": "metformin",
     "severity": "none"
   },
   {
+    "drug1": "albuterol",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
     "drug1": "amlodipine",
-    "drug2": "clavulanate",
+    "drug2": "gabapentin",
     "severity": "none"
   },
   {
-    "drug1": "metformin",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "citalopram",
-    "severity": "none"
-  },
-  {
-    "drug1": "citalopram",
+    "drug1": "atorvastatin",
     "drug2": "lisinopril",
-    "severity": "low"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "warfarin",
     "severity": "none"
   },
   {
-    "drug1": "lisinopril",
-    "drug2": "tramadol",
+    "drug1": "aspirin",
+    "drug2": "fluticasone",
     "severity": "none"
   },
   {
-    "drug1": "azithromycin",
-    "drug2": "clavulanate",
+    "drug1": "hydrochlorothiazide",
+    "drug2": "losartan",
     "severity": "none"
   },
   {
-    "drug1": "amoxicillin",
-    "drug2": "citalopram",
-    "severity": "none"
-  },
-  {
-    "drug1": "losartan",
-    "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "citalopram",
+    "drug1": "omeprazole",
     "drug2": "sertraline",
     "severity": "none"
   },
   {
-    "drug1": "fluticasone",
-    "drug2": "lisinopril",
-    "severity": "none"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "losartan",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
     "drug1": "amlodipine",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "hydrochlorothiazide",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "gabapentin",
-    "severity": "low"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "hydrochlorothiazide",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "fluticasone",
-    "severity": "none"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "clavulanate",
+    "drug2": "metformin",
     "severity": "medium"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "tramadol",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "hydrochlorothiazide",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "fluticasone",
-    "severity": "none"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "simvastatin",
-    "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "warfarin",
-    "severity": "none"
-  },
-  {
-    "drug1": "citalopram",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "aspirin",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "hydrochlorothiazide",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "simvastatin",
-    "severity": "low"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "azithromycin",
-    "severity": "none"
-  },
-  {
-    "drug1": "lisinopril",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "aspirin",
-    "severity": "none"
   },
   {
     "drug1": "gabapentin",
     "drug2": "losartan",
-    "severity": "medium"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "simvastatin",
     "severity": "none"
   },
   {
     "drug1": "fluticasone",
+    "drug2": "simvastatin",
+    "severity": "high"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "gabapentin",
+    "severity": "low"
+  },
+  {
+    "drug1": "lisinopril",
     "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "azithromycin",
+    "drug2": "citalopram",
+    "severity": "none"
+  },
+  {
+    "drug1": "aspirin",
+    "drug2": "simvastatin",
     "severity": "none"
   },
   {
@@ -826,112 +831,57 @@
   },
   {
     "drug1": "aspirin",
-    "drug2": "azithromycin",
-    "severity": "low"
-  },
-  {
-    "drug1": "azithromycin",
-    "drug2": "metformin",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
-    "drug2": "clavulanate",
-    "severity": "none"
-  },
-  {
-    "drug1": "hydrochlorothiazide",
-    "drug2": "metformin",
-    "severity": "none"
-  },
-  {
-    "drug1": "ibuprofen",
-    "drug2": "omeprazole",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "fluticasone",
-    "severity": "none"
-  },
-  {
-    "drug1": "atorvastatin",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "amoxicillin",
     "drug2": "hydrochlorothiazide",
     "severity": "none"
   },
   {
-    "drug1": "ibuprofen",
+    "drug1": "azithromycin",
     "drug2": "metformin",
-    "severity": "none"
-  },
-  {
-    "drug1": "fluticasone",
-    "drug2": "losartan",
-    "severity": "none"
-  },
-  {
-    "drug1": "metformin",
-    "drug2": "sertraline",
-    "severity": "none"
-  },
-  {
-    "drug1": "amlodipine",
-    "drug2": "citalopram",
-    "severity": "none"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "azithromycin",
-    "severity": "low"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "metformin",
-    "severity": "none"
+    "severity": "high"
   },
   {
     "drug1": "atorvastatin",
-    "drug2": "lisinopril",
-    "severity": "medium"
-  },
-  {
-    "drug1": "albuterol",
-    "drug2": "omeprazole",
+    "drug2": "simvastatin",
     "severity": "none"
   },
   {
-    "drug1": "atorvastatin",
-    "drug2": "tramadol",
+    "drug1": "amoxicillin",
+    "drug2": "gabapentin",
     "severity": "none"
   },
   {
-    "drug1": "losartan",
-    "drug2": "metformin",
-    "severity": "none"
-  },
-  {
-    "drug1": "clavulanate",
-    "drug2": "losartan",
+    "drug1": "lisinopril",
+    "drug2": "warfarin",
     "severity": "none"
   },
   {
     "drug1": "citalopram",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "atorvastatin",
+    "drug2": "azithromycin",
+    "severity": "none"
+  },
+  {
+    "drug1": "albuterol",
     "drug2": "tramadol",
     "severity": "none"
   },
   {
-    "drug1": "gabapentin",
-    "drug2": "metformin",
+    "drug1": "clavulanate",
+    "drug2": "gabapentin",
     "severity": "none"
   },
   {
-    "drug1": "gabapentin",
-    "drug2": "omeprazole",
+    "drug1": "omeprazole",
+    "drug2": "warfarin",
+    "severity": "low"
+  },
+  {
+    "drug1": "citalopram",
+    "drug2": "lisinopril",
     "severity": "none"
   },
   {
@@ -940,13 +890,63 @@
     "severity": "none"
   },
   {
-    "drug1": "lisinopril",
-    "drug2": "omeprazole",
+    "drug1": "amlodipine",
+    "drug2": "lisinopril",
+    "severity": "none"
+  },
+  {
+    "drug1": "metformin",
+    "drug2": "warfarin",
     "severity": "none"
   },
   {
     "drug1": "fluticasone",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "losartan",
+    "drug2": "warfarin",
+    "severity": "none"
+  },
+  {
+    "drug1": "simvastatin",
+    "drug2": "warfarin",
+    "severity": "low"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "citalopram",
+    "severity": "none"
+  },
+  {
+    "drug1": "amlodipine",
+    "drug2": "losartan",
+    "severity": "none"
+  },
+  {
+    "drug1": "amoxicillin",
+    "drug2": "azithromycin",
+    "severity": "none"
+  },
+  {
+    "drug1": "gabapentin",
     "drug2": "ibuprofen",
     "severity": "low"
+  },
+  {
+    "drug1": "clavulanate",
+    "drug2": "warfarin",
+    "severity": "low"
+  },
+  {
+    "drug1": "omeprazole",
+    "drug2": "tramadol",
+    "severity": "none"
+  },
+  {
+    "drug1": "lisinopril",
+    "drug2": "simvastatin",
+    "severity": "none"
   }
 ]

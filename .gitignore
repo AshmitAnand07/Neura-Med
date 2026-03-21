@@ -1,2 +1,8 @@
-
 serviceAccountKey.json
+.env
+__pycache__/
+*.pyc
+*.db
+*.log
+*.pkl
+.ipynb_checkpoints/

@@ -1,110 +1,185 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
-import { Mic, UploadCloud, BellRing, Activity, ArrowRight } from 'lucide-react';
-import AnimatedPage from '../components/AnimatedPage';
-import { useNeuraStore } from '../store';
+import { 
+  Mic, 
+  UploadCloud, 
+  ShieldCheck, 
+  Activity, 
+  ArrowRight, 
+  LayoutDashboard,
+  Sparkles,
+  Zap,
+  Globe
+} from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 export default function HomePage() {
-  const toggleVoiceUI = useNeuraStore(state => state.toggleVoiceUI);
-
   return (
-    <AnimatedPage className="space-y-12 pb-12">
-      {/* Hero Header */}
-      <section className="text-center md:text-left md:flex items-center justify-between gap-12 mt-8">
-         <div className="flex-1">
-           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 text-primary-700 font-semibold mb-6 shadow-sm border border-primary-100 text-sm">
-             <Activity size={16} /> <span>v2.0 Smart Health Platform</span>
-           </div>
-           
-           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
-              Your AI-Powered <br className="hidden md:block"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-green-400">
-                 Health Companion
-              </span>
-           </h1>
-           
-           <p className="mt-4 text-lg md:text-xl text-gray-500 max-w-2xl mx-auto md:mx-0">
-             Instantly scan medical prescriptions, detect unsafe drug interactions, and converse natively with your health assistant using just your voice.
-           </p>
-
-           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-             <button
-               onClick={() => toggleVoiceUI(true)} 
-               className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg shadow-glow transition-transform active:scale-95"
-             >
-               <Mic size={22} /> Start Voice Assistant
-             </button>
-             
-             <Link 
-               href="/scanner"
-               className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white hover:bg-gray-50 text-gray-800 font-bold text-lg shadow-soft border border-gray-200 transition-transform active:scale-95"
-             >
-               <UploadCloud size={22} className="text-primary-600"/> Upload Prescription
+    <div className="min-h-screen bg-white overflow-hidden">
+      {/* Navigation Header */}
+      <header className="fixed top-0 w-full z-50 glass border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+             <div className="p-2 bg-emerald-600 rounded-lg">
+                <ShieldCheck className="text-white w-6 h-6" />
+             </div>
+             <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-800 bg-clip-text text-transparent">
+               NeuraMed
+             </span>
+          </div>
+          <nav className="hidden md:flex items-center gap-8">
+             <Link href="#features" className="text-sm font-semibold text-slate-600 hover:text-emerald-700 transition-colors">Features</Link>
+             <Link href="#mission" className="text-sm font-semibold text-slate-600 hover:text-emerald-700 transition-colors">Mission</Link>
+             <Link href="/login" className="text-sm font-semibold text-slate-600 hover:text-emerald-700 transition-colors">Sign In</Link>
+             <Link href="/register">
+                <Button size="sm">Get Started</Button>
              </Link>
-           </div>
-         </div>
+          </nav>
+        </div>
+      </header>
 
-         {/* Visual Graphic Representation */}
-         <div className="hidden md:block flex-1 rounded-3xl bg-gradient-to-br from-primary-100 to-green-50 aspect-square relative shadow-lg overflow-hidden border border-white">
-            <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
-               <div className="bg-white p-6 rounded-2xl shadow-soft w-64 flex items-center gap-4 animate-[bounce_3s_ease-in-out_infinite]">
-                  <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                    <Mic className="text-primary-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-800 text-sm">"Hey NeuraMed"</h4>
-                    <p className="text-xs text-gray-500">I'm listening...</p>
-                  </div>
-               </div>
-
-               <div className="bg-white p-6 rounded-2xl shadow-soft w-64 flex items-center gap-4 ml-24 opacity-90 delay-150 animate-[bounce_4s_ease-in-out_infinite]">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                    <BellRing className="text-blue-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-800 text-sm">Smart Reminder</h4>
-                    <p className="text-xs text-gray-500">Time for Aspirin 500mg</p>
-                  </div>
-               </div>
+      {/* Hero Section */}
+      <section className="relative pt-40 pb-20 px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8 animate-page-entry">
+                <Badge variant="success" className="px-4 py-1 gap-2 text-sm">
+                    <Sparkles className="w-3.5 h-3.5" /> Next-Gen Health AI
+                </Badge>
+                <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1]">
+                    The Intelligent <br/>
+                    <span className="text-emerald-600">Shield</span> for Your <br/>
+                    Health.
+                </h1>
+                <p className="text-xl text-slate-500 max-w-lg leading-relaxed font-medium">
+                    Digitize your prescriptions in seconds, prevent drug interactions with clinical-grade AI, and manage your health using voice.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Link href="/register">
+                        <Button size="lg" className="px-10 py-5 text-lg shadow-xl shadow-emerald-200">
+                            Create Free Account
+                        </Button>
+                    </Link>
+                    <Link href="/login">
+                        <Button variant="outline" size="lg" className="px-10 py-5 text-lg">
+                            Login to Portal
+                        </Button>
+                    </Link>
+                </div>
+                <div className="flex items-center gap-6 pt-4 text-slate-400">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <Zap size={14} className="text-amber-500" /> Real-time
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <Globe size={14} className="text-blue-500" /> Multi-lingual
+                    </div>
+                </div>
             </div>
-         </div>
+
+            <div className="relative group lg:block hidden">
+                <div className="absolute -inset-4 bg-emerald-100/50 rounded-[3rem] blur-3xl group-hover:bg-emerald-200/50 transition-all duration-700" />
+                <div className="relative bg-white border border-slate-100 rounded-[3rem] p-10 shadow-2xl overflow-hidden animate-page-entry" style={{ animationDelay: '200ms' }}>
+                    <div className="space-y-6">
+                        <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 animate-in slide-in-from-right duration-700 delay-300">
+                            <div className="flex items-center gap-4 mb-3">
+                                <div className="p-3 bg-emerald-100 rounded-2xl text-emerald-600">
+                                    <Mic size={24} />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-slate-900">Voice Assistant</h4>
+                                    <p className="text-xs text-slate-400 font-medium italic">"When is my next dose of Amoxicillin?"</p>
+                                </div>
+                            </div>
+                            <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
+                                <div className="h-full bg-emerald-500 w-1/3 animate-pulse" />
+                            </div>
+                        </div>
+
+                        <div className="bg-slate-900 p-8 rounded-3xl animate-in slide-in-from-right duration-700 delay-500">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="p-2 bg-emerald-500/20 rounded-lg">
+                                    <LayoutDashboard className="text-emerald-400 w-6 h-6" />
+                                </div>
+                                <Badge variant="success" className="bg-emerald-500/10 text-emerald-400 border-none">Active Schedule</Badge>
+                            </div>
+                            <div className="space-y-3">
+                                <div className="h-3 w-1/2 bg-white/10 rounded-full" />
+                                <div className="h-3 w-3/4 bg-white/5 rounded-full" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </section>
 
-      {/* Grid Features */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">
-          
-          <Link href="/dashboard" className="group bg-white p-8 rounded-3xl shadow-soft border border-gray-100 hover:border-primary-200 hover:shadow-lg transition-all cursor-pointer">
-             <div className="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center mb-6 group-hover:bg-orange-100 transition-colors">
-                <LayoutDashboard className="text-orange-500" size={28} />
-             </div>
-             <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-               Medicine Dashboard <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary-600" />
-             </h3>
-             <p className="text-gray-500">Track your daily intakes visually and monitor your adherence streaks seamlessly.</p>
-          </Link>
+      {/* Feature Section */}
+      <section id="features" className="py-24 px-6 bg-slate-50">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="text-center space-y-4">
+                <h2 className="text-4xl font-bold text-slate-900">Unified Health Infrastructure</h2>
+                <p className="text-slate-500 max-w-2xl mx-auto font-medium">All the tools you need to manage your medical journey safely and efficiently.</p>
+            </div>
 
-          <Link href="/interactions" className="group bg-white p-8 rounded-3xl shadow-soft border border-gray-100 hover:border-red-200 hover:shadow-lg transition-all cursor-pointer">
-             <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mb-6 group-hover:bg-red-100 transition-colors">
-                <Activity className="text-red-500" size={28} />
-             </div>
-             <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-               Interaction Checker <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-red-600" />
-             </h3>
-             <p className="text-gray-500">Cross-reference multiple drugs against our AI engine to prevent unsafe reactions.</p>
-          </Link>
-
-          <Link href="/settings" className="group bg-white p-8 rounded-3xl shadow-soft border border-gray-100 hover:border-indigo-200 hover:shadow-lg transition-all cursor-pointer">
-             <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center mb-6 group-hover:bg-indigo-100 transition-colors">
-                <BellRing className="text-indigo-500" size={28} />
-             </div>
-             <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-               Smart Alerts <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-indigo-600" />
-             </h3>
-             <p className="text-gray-500">Configure repeating indigenous voice reminders utilizing the Sarvam speech synthesis pipeline.</p>
-          </Link>
-
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <FeatureCard 
+                    icon={<UploadCloud />}
+                    title="Smart OCR Scanner"
+                    description="Digitize handwriting and printed prescriptions with 99% accuracy using advanced neural networks."
+                    color="emerald"
+                />
+                <FeatureCard 
+                    icon={<Activity />}
+                    title="Interaction Guard"
+                    description="Our safety matrix scans multiple drugs simultaneously to flag potentially dangerous side effects."
+                    color="blue"
+                />
+                <FeatureCard 
+                    icon={<Mic />}
+                    title="Voice Interface"
+                    description="Hands-free health management. Ask questions and get reminders in English and regional languages."
+                    color="indigo"
+                />
+            </div>
+          </div>
       </section>
-    </AnimatedPage>
+
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-50 rounded-full -translate-y-1/2 translate-x-1/2 mix-blend-multiply -z-10 blur-3xl opacity-50" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-50 rounded-full translate-y-1/3 -translate-x-1/4 mix-blend-multiply -z-10 blur-3xl opacity-50" />
+    </div>
   );
+}
+
+function FeatureCard({ icon, title, description, color }: any) {
+    const colors: any = {
+        emerald: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100",
+        blue: "bg-blue-50 text-blue-600 group-hover:bg-blue-100",
+        indigo: "bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100"
+    };
+
+    return (
+        <div className="p-10 bg-white rounded-[2.5rem] border border-slate-100 hover:border-emerald-200 transition-all duration-300 group hover:shadow-2xl hover:shadow-emerald-100/30">
+            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-8 transition-colors ${colors[color]}`}>
+                {React.cloneElement(icon, { size: 32 })}
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
+            <p className="text-slate-500 font-medium leading-relaxed">{description}</p>
+            <div className="mt-8 pt-8 border-t border-slate-50 flex items-center gap-2 text-emerald-600 font-bold group-hover:translate-x-2 transition-transform cursor-pointer">
+                Learn More <ArrowRight size={18} />
+            </div>
+        </div>
+    );
+}
+
+function Badge({ children, variant, className }: any) {
+    const styles: any = {
+        success: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    };
+    return (
+        <span className={`inline-flex items-center rounded-full border font-bold ${styles[variant]} ${className}`}>
+            {children}
+        </span>
+    );
 }

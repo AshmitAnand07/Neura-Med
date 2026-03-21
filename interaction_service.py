@@ -7,7 +7,7 @@ from typing import Dict, Any, Optional
 # Import the ML prediction hook from the previously established model
 from interaction_model import predict_interaction
 
-app = FastAPI(title="Interaction Service Layer")
+
 
 class InteractionRequest(BaseModel):
     drug1: str = Field(..., min_length=1, description="First drug active ingredient", json_schema_extra={"example": "aspirin"})
@@ -54,32 +54,4 @@ def check_rule_based(drug1: str, drug2: str) -> Optional[Dict[str, Any]]:
     # Rule not present in static database
     return None
 
-@app.post("/check-interaction", response_model=InteractionResponse)
-async def check_interaction_endpoint(request: InteractionRequest):
-    """
-    Evaluates medication combinations combining absolute hardcoded safety rules
-    with a predictive Scikit-Learn Random Forest fallback topology.
-    """
-    # 1. Primary Rule-Based Lookup (Deterministic Safety Pipeline)
-    rule_result = check_rule_based(request.drug1, request.drug2)
-    
-    if rule_result is not None:
-        return InteractionResponse(**rule_result)
-        
-    # 2. ML Engine Fallback 
-    # (interaction_model.py natively loads 'interaction_model.pkl' when invoked)
-    try:
-        ml_prediction = predict_interaction(request.drug1, request.drug2)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"ML Model Pipeline Error: {str(e)}")
-        
-    return InteractionResponse(
-        interaction=ml_prediction["interaction"],
-        severity=ml_prediction["severity"],
-        source="ml"
-    )
-
-if __name__ == "__main__":
-    import uvicorn
-    # Execute standalone API hook
-    uvicorn.run("interaction_service:app", host="0.0.0.0", port=8000, reload=True)
+# Note: ML Model Pipeline logic and rule-based lookup exported for Gateway integration.

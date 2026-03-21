@@ -1,72 +1,65 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import AnimatedPage from '../../components/AnimatedPage';
-import VoiceRecorder from '../../components/VoiceRecorder';
-import { useNeuraStore } from '../../store';
+import React from 'react';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
+import { VoiceRecorder } from '@/components/VoiceRecorder';
+import { Card } from '@/components/ui/Card';
+import { Mic, Globe, Info } from 'lucide-react';
 
-export default function VoiceUI() {
-  const { isVoiceUIActive, toggleVoiceUI } = useNeuraStore();
-
-  // Esc key gracefully destroys modal wrapper
-  useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') toggleVoiceUI(false);
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, [toggleVoiceUI]);
-
-  if (!isVoiceUIActive) {
-    // Hidden generic rendering state mapping when routed manually vs toggled globally
-    return (
-      <AnimatedPage className="min-h-[60vh] flex flex-col items-center justify-center p-6 text-center">
-         <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">AI Voice Assistant</h1>
-         <p className="text-gray-500 mt-4 max-w-xl mx-auto mb-8">
-           NeuraMed's Voice Assistant utilizes advanced Sarvam AI linguistic pipelines to interpret complex commands seamlessly in indigenous accents.
-         </p>
-         <button 
-           onClick={() => toggleVoiceUI(true)}
-           className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full shadow-glow transition-transform active:scale-95"
-         >
-           Activate Context Matrix
-         </button>
-      </AnimatedPage>
-    );
-  }
-
+export default function VoicePage() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-       {/* Background Blur Overlay Element */}
-       <div 
-         className="absolute inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity animate-in fade-in cursor-pointer" 
-         onClick={() => toggleVoiceUI(false)}
-       />
-       
-       {/* Explicit Container */}
-       <div className="relative w-full max-w-lg z-10 animate-in zoom-in-95 duration-200">
-         
-         <div className="absolute right-4 top-4 z-20">
-           <button 
-             onClick={() => toggleVoiceUI(false)}
-             className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-red-100 text-gray-500 hover:text-red-500 transition-colors"
-           >
-             ✖
-           </button>
-         </div>
+    <DashboardLayout>
+      <div className="max-w-4xl mx-auto space-y-8">
+        
+        {/* Header */}
+        <div className="flex items-center gap-4">
+            <div className="p-3 bg-indigo-100 rounded-2xl">
+                <Mic className="w-8 h-8 text-indigo-600" />
+            </div>
+            <div>
+                <h1 className="text-3xl font-bold text-slate-900">Voice Assistant</h1>
+                <p className="text-slate-500">Natural language control for your medication schedule</p>
+            </div>
+        </div>
 
-         {/* Extends and encapsulates the complex logic built earlier without fragmenting states */}
-         <VoiceRecorder 
-           onInteractionComplete={(result) => {
-             console.log("[Global Voice Handler] Extracted Execution Bounds:", result);
-             // E.g. If the server requested a UI Route transition organically
-             if (result.actionResult?.clientAction?.type === 'NAVIGATE') {
-                toggleVoiceUI(false);
-                window.location.href = result.actionResult.clientAction.payload.route;
-             }
-           }} 
-         />
-       </div>
-    </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+                <VoiceRecorder />
+            </div>
+
+            <div className="space-y-6">
+                <Card title="Voice Commands" description="Try saying these:">
+                    <div className="space-y-3 mt-4">
+                        {[
+                            "Remind me about Amoxicillin",
+                            "Check interactions for Aspirin",
+                            "When is my next dose?",
+                            "Register new prescription"
+                        ].map((cmd, i) => (
+                            <div key={cmd} className="p-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-600 flex items-center gap-2 group hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                                <Globe className="w-3.5 h-3.5 text-slate-300 group-hover:text-emerald-500" />
+                                "{cmd}"
+                            </div>
+                        ))}
+                    </div>
+                </Card>
+
+                <Card className="bg-emerald-900 text-white border-none">
+                    <div className="flex gap-4">
+                        <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                            <Info className="text-emerald-400 w-5 h-5" />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold">Multi-lingual Support</p>
+                            <p className="text-[10px] text-emerald-200/70 mt-1 leading-relaxed">
+                                Our platform natively supports Hindi, Tamil, Bengali, and English voice interactions.
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+        </div>
+      </div>
+    </DashboardLayout>
   );
 }

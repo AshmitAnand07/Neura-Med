@@ -7,6 +7,7 @@ export interface Medicine {
   frequency: string;
   timing: string;
   status: 'active' | 'completed' | 'paused';
+  duration: string;
 }
 
 export interface AlertSettings {
@@ -28,6 +29,7 @@ interface NeuraMedState {
   toggleVoiceUI: (active: boolean) => void;
   
   updateAlertSettings: (settings: Partial<AlertSettings>) => void;
+  fetchMedicines: (patientId: string) => Promise<void>;
 }
 
 export const useNeuraStore = create<NeuraMedState>((set) => ({
@@ -48,4 +50,18 @@ export const useNeuraStore = create<NeuraMedState>((set) => ({
   updateAlertSettings: (newSettings) => set((state) => ({ 
     alertSettings: { ...state.alertSettings, ...newSettings } 
   })),
+
+  fetchMedicines: async (patientId: string) => {
+    if (!patientId || patientId === 'undefined') return;
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${baseUrl}/api/medicines?patient_id=${patientId}`);
+      if (response.ok) {
+        const data = await response.json();
+        set({ medicines: data });
+      }
+    } catch (error) {
+      console.error("Failed to fetch medicines:", error);
+    }
+  }
 }));

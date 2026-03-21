@@ -1,4 +1,5 @@
 import os
+from typing import List, Dict, Any, Optional
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel, Field
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean
@@ -55,6 +56,18 @@ class AdherenceLogDB(Base):
     patient = relationship("PatientDB", back_populates="adherence_logs")
     medicine = relationship("MedicineDB", back_populates="adherence_logs")
 
+class ReminderDB(Base):
+    __tablename__ = "reminders"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    patient_id = Column(Integer, ForeignKey("patients.id"), nullable=False)
+    medicine_name = Column(String, nullable=False)
+    time = Column(String, nullable=False) # e.g. "08:00"
+    dosage = Column(String, nullable=True)
+    is_active = Column(Boolean, default=True)
+    
+    patient = relationship("PatientDB")
+
 # ==========================================
 # 3. PYDANTIC DATA VALIDATION (I/O BOUNDARIES)
 # ==========================================
@@ -68,12 +81,31 @@ class PatientOut(PatientCreate):
         from_attributes = True
 
 class MedicineCreate(BaseModel):
-    patient_id: int = Field(..., description="Target parent patient identity")
-    name: str = Field(..., min_length=1, description="Active compound identifier")
-    dosage: str = Field(..., min_length=1, description="Milligram / frequency metric string")
+    patient_id: int
+    name: str
+    dosage: str
+    frequency: Optional[str] = None
+    timing: Optional[str] = None
+    status: Optional[str] = "active"
+
+class BulkMedicineCreate(BaseModel):
+    patient_id: int
+    medicines: List[Dict[str, Any]] # List of medicine data
 
 class MedicineOut(MedicineCreate):
     id: int
+    class Config:
+        from_attributes = True
+
+class ReminderCreate(BaseModel):
+    patient_id: int
+    medicine_name: str
+    time: str
+    dosage: Optional[str] = None
+
+class ReminderOut(ReminderCreate):
+    id: int
+    is_active: bool
     class Config:
         from_attributes = True
 
@@ -89,13 +121,8 @@ class AdherenceLogOut(AdherenceLogCreate):
         from_attributes = True
 
 # ==========================================
-# 4. FASTAPI CRUD COMPONENT LAYER
+# 4. EXPORTED UTILS (No standalone app)
 # ==========================================
-app = FastAPI(
-    title="NeuraMed Persistent Storage Engine",
-    description="Explicitly partitioned database access layer utilizing SQLAlchemy. Does not interfere with AI/ML logic bindings natively."
-)
-
 def get_db():
     """Generator resolving raw DB sessions and safely closing them post-HTTP loop."""
     db = SessionLocal()
@@ -106,45 +133,3 @@ def get_db():
 
 # Compiles SQL Graph into Table Schemas immediately on execution natively
 Base.metadata.create_all(bind=engine)
-
-@app.post("/patients/", response_model=PatientOut, tags=["Users"])
-def map_create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
-    """Stamps a new user firmly into the Database Graph."""
-    db_patient = PatientDB(name=patient.name, age=patient.age)
-    db.add(db_patient)
-    db.commit()
-    db.refresh(db_patient)
-    return db_patient
-
-@app.post("/medicines/", response_model=MedicineOut, tags=["Prescriptions"])
-def map_add_medicine(medicine: MedicineCreate, db: Session = Depends(get_db)):
-    """Secures a new medication directly mapping onto a valid Patient ID parent."""
-    # Enforce safe foreign relationships globally
-    db_patient = db.query(PatientDB).filter(PatientDB.id == medicine.patient_id).first()
-    if not db_patient:
-        raise HTTPException(status_code=404, detail="Relational Error: Patient ID actively missing.")
-        
-    db_medicine = MedicineDB(**medicine.model_dump())
-    db.add(db_medicine)
-    db.commit()
-    db.refresh(db_medicine)
-    return db_medicine
-
-@app.post("/adherence/", response_model=AdherenceLogOut, tags=["Telemetry"])
-def map_log_adherence(log: AdherenceLogCreate, db: Session = Depends(get_db)):
-    """Submits timestamped boolean dose telemetry linking a drug to a specific patient context natively."""
-    # Ensure nested relational mapping holds true
-    db_medicine = db.query(MedicineDB).filter(MedicineDB.id == log.medicine_id, MedicineDB.patient_id == log.patient_id).first()
-    if not db_medicine:
-        raise HTTPException(status_code=404, detail="Relational Error: Medicine ID directly conflicts with registered Patient associations.")
-        
-    db_log = AdherenceLogDB(**log.model_dump())
-    db.add(db_log)
-    db.commit()
-    db.refresh(db_log)
-    return db_log
-
-if __name__ == "__main__":
-    import uvicorn
-    # Mapped natively to alternate isolation port 8003
-    uvicorn.run("database_service:app", host="0.0.0.0", port=8003, reload=True)

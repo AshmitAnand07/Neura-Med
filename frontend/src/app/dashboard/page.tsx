@@ -1,108 +1,166 @@
 'use client';
 
-import React from 'react';
-import { Pill, CheckCircle2, AlertCircle, Clock3 } from 'lucide-react';
-import AnimatedPage from '../../components/AnimatedPage';
-import { useNeuraStore } from '../../store';
+import React, { useEffect, useState } from 'react';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { useNeuraStore } from '@/store';
+import { 
+  Bell, 
+  Activity, 
+  TrendingUp, 
+  Calendar,
+  AlertCircle,
+  Clock,
+  ArrowRight,
+  Scan,
+  ShieldPlus,
+  Pill
+} from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
-  // In a real application, these would be bound to the `medicines` store and filtered dynamically.
-  // We use hardcoded placeholder representation indicating dynamic states for UI verification.
-  const { medicines } = useNeuraStore();
+  const { medicines, fetchMedicines } = useNeuraStore();
+  const [greeting, setGreeting] = useState('');
 
-  const mockDoses = [
-    { id: '1', med: 'Aspirin', dose: '500mg', time: '08:00 AM', status: 'taken' },
-    { id: '2', med: 'Atorvastatin', dose: '20mg', time: '12:00 PM', status: 'pending' },
-    { id: '3', med: 'Metformin', dose: '500mg', time: '02:00 PM', status: 'missed' },
-    { id: '4', med: 'Lisinopril', dose: '10mg', time: '08:00 PM', status: 'pending' },
-  ];
+  useEffect(() => {
+    fetchMedicines('1'); // Mock patient ID
+    const hour = new Date().getHours();
+    if (hour < 12) setGreeting('Good Morning');
+    else if (hour < 18) setGreeting('Good Afternoon');
+    else setGreeting('Good Evening');
+  }, [fetchMedicines]);
 
   return (
-    <AnimatedPage className="space-y-6">
-      
-      <div className="flex justify-between items-end mb-8 mt-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-gray-900">Today's Regimen</h1>
-          <p className="text-gray-500 mt-1 font-medium">Monday, 24th October</p>
+    <DashboardLayout>
+      <div className="space-y-8">
+        {/* Welcome Section */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">{greeting}, Alex</h1>
+            <p className="text-slate-500 mt-1">Here is what is happening with your health today.</p>
+          </div>
+          <div className="flex gap-3">
+             <Button variant="outline" className="gap-2">
+                <Calendar className="w-4 h-4" />
+                Schedule
+             </Button>
+             <Link href="/scanner">
+                <Button className="gap-2 bg-emerald-600 hover:bg-emerald-700">
+                    <Scan className="w-4 h-4" />
+                    New Scan
+                </Button>
+             </Link>
+          </div>
         </div>
-        <div className="bg-primary-50 text-primary-700 px-4 py-2 rounded-xl font-bold flex items-center gap-2 border border-primary-100">
-          <CheckCircle2 size={20} /> <span className="hidden sm:inline">25% Adherence</span>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="flex items-center gap-4 border-l-4 border-l-emerald-500">
+            <div className="p-3 bg-emerald-50 rounded-xl">
+              <Activity className="w-6 h-6 text-emerald-600" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-500">Adherence Score</p>
+              <p className="text-2xl font-bold text-slate-900">
+                {medicines.length > 0 ? '92%' : '0%'}
+              </p>
+            </div>
+          </Card>
+          <Card className="flex items-center gap-4 border-l-4 border-l-blue-500">
+            <div className="p-3 bg-blue-50 rounded-xl">
+              <TrendingUp className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-500">Active Medicines</p>
+              <p className="text-2xl font-bold text-slate-900">{medicines.length}</p>
+            </div>
+          </Card>
+          <Card className="flex items-center gap-4 border-l-4 border-l-amber-500">
+            <div className="p-3 bg-amber-50 rounded-xl">
+              <Bell className="w-6 h-6 text-amber-600" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-500">Daily To-Do</p>
+              <p className="text-2xl font-bold text-slate-900">
+                {medicines.length > 0 ? '3/4 Completed' : '0/0 Completed'}
+              </p>
+            </div>
+          </Card>
         </div>
-      </div>
 
-      {/* Hero Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-10">
-         <div className="bg-white p-5 rounded-3xl shadow-soft border border-gray-100 flex flex-col items-center justify-center">
-            <span className="text-3xl font-black text-gray-800">1</span>
-            <span className="text-xs text-gray-500 uppercase font-bold mt-1 tracking-wider">Taken</span>
-         </div>
-         <div className="bg-primary-600 p-5 rounded-3xl shadow-glow text-white flex flex-col items-center justify-center transform scale-[1.02]">
-            <span className="text-4xl font-black">2</span>
-            <span className="text-xs uppercase font-bold mt-1 tracking-wider opacity-90">Pending</span>
-         </div>
-         <div className="bg-white p-5 rounded-3xl shadow-soft border border-gray-100 flex flex-col items-center justify-center">
-            <span className="text-3xl font-black text-red-500">1</span>
-            <span className="text-xs text-red-500 uppercase font-bold mt-1 tracking-wider">Missed</span>
-         </div>
-      </div>
-
-      <h2 className="text-xl font-bold text-gray-800 mb-4 px-1">Upcoming & Log</h2>
-
-      <div className="space-y-4">
-         {mockDoses.map((entry) => {
-            const isTaken = entry.status === 'taken';
-            const isMissed = entry.status === 'missed';
-            const isPending = entry.status === 'pending';
-
-            return (
-              <div 
-                key={entry.id} 
-                className={`flex items-center justify-between p-5 rounded-2xl shadow-sm border transition-all ${
-                  isMissed 
-                    ? 'bg-red-50/50 border-red-100 hover:bg-red-50' 
-                    : isTaken 
-                      ? 'bg-gray-50 border-gray-100 opacity-60' 
-                      : 'bg-white border-gray-200 hover:border-primary-300 hover:shadow-md'
-                }`}
-              >
-                  <div className="flex items-center gap-4">
-                     <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                       isMissed ? 'bg-red-100 text-red-600' : isTaken ? 'bg-gray-200 text-gray-500' : 'bg-primary-100 text-primary-600'
-                     }`}>
-                        <Pill size={24} />
-                     </div>
-                     
-                     <div>
-                       <h3 className={`font-bold text-lg ${isTaken ? 'line-through text-gray-500' : 'text-gray-900'}`}>
-                         {entry.med} <span className="font-normal text-sm text-gray-500 ml-1">{entry.dose}</span>
-                       </h3>
-                       <div className="flex items-center gap-1.5 mt-0.5 text-xs font-semibold text-gray-500">
-                         <Clock3 size={12} /> {entry.time}
-                       </div>
-                     </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div>
-                    {isPending && (
-                      <button className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-6 rounded-xl shadow-sm transition-transform active:scale-95 text-sm">
-                        Mark Taken
-                      </button>
-                    )}
-                    {isMissed && (
-                      <button className="flex items-center gap-1 bg-white border border-red-200 text-red-600 hover:bg-red-50 font-bold py-2 px-4 rounded-xl transition-all text-sm">
-                        <AlertCircle size={16} /> Recover
-                      </button>
-                    )}
-                    {isTaken && (
-                       <CheckCircle2 className="text-primary-500 mr-2" size={28} />
-                    )}
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Medication List */}
+          <div className="lg:col-span-2 space-y-4">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-emerald-600" />
+                <h2 className="text-xl font-bold text-slate-900">Upcoming Medications</h2>
               </div>
-            );
-         })}
-      </div>
+              <Button variant="ghost" className="text-emerald-600 text-sm gap-1 hover:bg-emerald-50">
+                View All <ArrowRight className="w-4 h-4" />
+              </Button>
+            </CardHeader>
+            <div className="space-y-4">
+              {medicines.length > 0 ? (
+                medicines.map((med, idx) => (
+                  <Card key={med.id || `${med.name}-${idx}`} className="group flex items-center justify-between hover:scale-[1.01]">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-slate-50 rounded-lg group-hover:bg-emerald-50 transition-colors">
+                        <Pill className="w-6 h-6 text-slate-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900">{med.name}</h4>
+                        <p className="text-sm text-slate-500">{med.dosage}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <Badge variant="success">Scheduled</Badge>
+                      <p className="text-xs text-slate-400 mt-1">Next: 2:00 PM</p>
+                    </div>
+                  </Card>
+                ))
+              ) : (
+                <div className="bg-white border border-dashed border-slate-200 rounded-xl p-12 text-center text-slate-400">
+                  <Pill className="w-12 h-12 mx-auto mb-3 opacity-20" />
+                  <p>No active medications detected. Scan a prescription to get started.</p>
+                </div>
+              )}
+            </div>
+          </div>
 
-    </AnimatedPage>
+          {/* Quick Actions & Safety */}
+          <div className="space-y-6">
+            <Card title="Safety Monitor" description="AI Interaction Analysis">
+               <div className="mt-4 p-4 bg-orange-50 border border-orange-100 rounded-xl space-y-3">
+                  <div className="flex items-start gap-2 text-orange-700">
+                     <AlertCircle className="w-5 h-5 mt-0.5 shrink-0" />
+                     <p className="text-sm font-medium">Potential interaction detected between Aspirin and Warfarin.</p>
+                  </div>
+                  <Link href="/interactions">
+                    <Button variant="outline" className="w-full text-xs font-semibold uppercase tracking-wider bg-white/50 border-orange-200 text-orange-700 hover:bg-orange-100">
+                        Investigate Now
+                    </Button>
+                  </Link>
+               </div>
+            </Card>
+
+            <Card title="Quick Actions">
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                   <Link href="/scanner" className="p-4 bg-slate-50 rounded-xl hover:bg-emerald-50 transition-colors text-center group">
+                      <Scan className="w-6 h-6 mx-auto mb-2 text-slate-400 group-hover:text-emerald-600" />
+                      <span className="text-xs font-semibold text-slate-600 group-hover:text-emerald-700">Scan OCR</span>
+                   </Link>
+                   <Link href="/interactions" className="p-4 bg-slate-50 rounded-xl hover:bg-blue-50 transition-colors text-center group">
+                      <ShieldPlus className="w-6 h-6 mx-auto mb-2 text-slate-400 group-hover:text-blue-600" />
+                      <span className="text-xs font-semibold text-slate-600 group-hover:text-blue-700">Drug Check</span>
+                   </Link>
+                </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
   );
 }

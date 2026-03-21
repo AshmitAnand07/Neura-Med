@@ -1,114 +1,274 @@
 import os
 import time
 import logging
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+import io
+import sys
+from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Form, Depends
+from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
+from typing import List, Dict, Any, Optional
 
-# Load variables from .env if present (Local Dev)
+# Fix Unicode for Windows console
+if sys.platform == "win32":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+# Load environment variables
 load_dotenv()
 
-# Configure native Python Logger for DevOps observability
+# Configure Logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger("neuramed-api")
-# Import absolute endpoint Logic functions and typed Pydantic payloads from modular microservices
-from interaction_service import check_interaction_endpoint, InteractionRequest, InteractionResponse
+logger = logging.getLogger("neuramed-gateway")
 
-from ai_orchestrator import ai_evaluate_endpoint, AiEvaluateRequest, AiEvaluateResponse
+# Import modular services
+from voice_service import speech_to_text, text_to_speech
+from ocr_service import extract_text_from_image, parse_prescription_text
+from ai_orchestrator import orchestrator, AiEvaluateRequest, AiEvaluateResponse
+from interaction_service import check_rule_based, predict_interaction, InteractionRequest, InteractionResponse
+from database_service import (
+    get_db, PatientDB, MedicineDB, AdherenceLogDB, ReminderDB,
+    PatientOut, MedicineOut, AdherenceLogOut, 
+    BulkMedicineCreate, ReminderCreate, ReminderOut, SessionLocal
+)
+from sqlalchemy.orm import Session
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """
-    Startup Validation Event Loop Protocol
-    Evaluates that memory states exist before Uvicorn binds the web sockets.
-    """
-    print("\n--- NEURAMED AI BOOT SEQUENCE ---")
-    required_models = ["interaction_model.pkl", "adherence_model.pkl"]
+    print("\n--- NEURAMED UNIFIED GATEWAY BOOT SEQUENCE ---")
     
-    for m in required_models:
-        if not os.path.exists(m):
-            print(f"⚠️ [WARNING] Trained AI weights '{m}' missing from root. Run `run_all.py` to auto-heal!")
-        else:
-            print(f"✅ [VALIDATED] Successfully bound '{m}' to memory cache.")
-            
-    if os.path.exists("synthetic_interactions.json"):
-        print("✅ [VALIDATED] Hardcoded Rule Database integrated.")
+    # Seed sample patient if not exists
+    db = SessionLocal()
+    try:
+        sample_patient = db.query(PatientDB).filter(PatientDB.id == 1).first()
+        if not sample_patient:
+            db.add(PatientDB(id=1, name="John Doe", age=45))
+            db.commit()
+            print("✅ Seeded placeholder patient (ID: 1) for demo.")
+    finally:
+        db.close()
         
     print("🚀 SYSTEM READY: All sub-services integrated and HTTP bound.")
-    print("----------------------------------\n")
     yield
-    print("\n[SHUTDOWN] NeuraMed OS Sequence Offline.")
+    print("\n[SHUTDOWN] NeuraMed Gateway Offline.")
 
 app = FastAPI(
-    title="NeuraMed Unified AI Production API",
-    description="Singular gateway aggregating the distinct Interaction Safety, Patient Adherence, and Smart Orchestration APIs into one Docker-ready web node.",
-    version="1.0.0",
+    title="NeuraMed Unified API Gateway",
+    description="Central hub for AI, Voice, OCR, and Database services.",
+    version="2.0.0",
     lifespan=lifespan
 )
 
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    """
-    Global Default Fallback Error Handler:
-    Catches all unfiltered Python / ML exceptions explicitly returning clean DevOps-friendly JSON formats.
-    """
-    logger.error(f"Global Exception mapped at {request.url.path}: {str(exc)}")
-    return JSONResponse(
-        status_code=500,
-        content={"error": "Internal Server Error", "detail": str(exc), "path": request.url.path}
-    )
+# Enable CORS for frontend integration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.middleware("http")
-async def production_logging_middleware(request: Request, call_next):
-    """
-    HTTP Protocol Intercept Middleware measuring precise computation overhead arrays
-    for ML pipelines, and dynamically tracking system endpoint performance metrics via Python logging.
-    """
-    start_time = time.time()
-    logger.info(f"Incoming REST Pipeline: {request.method} {request.url.path}")
-    
+# --- 1. PRESCRIPTION & OCR FLOW ---
+@app.post("/api/prescription/upload", tags=["OCR"])
+async def upload_prescription(file: UploadFile = File(...), user_id: str = Form(...), db: Session = Depends(get_db)):
+    """Image -> OCR -> AI parsing -> Database storage"""
     try:
-        response = await call_next(request)
-        process_time = time.time() - start_time
-        logger.info(f"Response Resolved: {response.status_code} | Latency Overhead: {process_time:.4f}s")
-        return response
+        content = await file.read()
+        # 1. Extract raw text via Google Vision
+        raw_text = extract_text_from_image(content)
+        if not raw_text.strip():
+            raise HTTPException(status_code=400, detail="No readable text found in image.")
+            
+        # 2. Parse via GPT-4o
+        structured_data = await parse_prescription_text(raw_text)
+        
+        # 3. (Optional) Auto-save to DB if patient exists
+        # This is a placeholder for actual business logic linking
+        
+        return {
+            "status": "success",
+            "raw_text": raw_text,
+            "structured_data": structured_data
+        }
     except Exception as e:
-        process_time = time.time() - start_time
-        logger.error(f"Request Catastrophic Failure: {request.method} {request.url.path} | Compute Halt: {process_time:.4f}s | Trapped Exception: {str(e)}")
-        raise e
+        logger.error(f"❌ Prescription Upload Critical Failure: {str(e)}")
+        # Providing a structured error that the frontend can handle gracefully
+        return {
+            "status": "error",
+            "message": "AI OCR service is temporarily unavailable. Using mock data for demo.",
+            "structured_data": {"medicines": [{"name": "Amoxicillin", "dosage": "500mg, 3 times daily", "duration": "10 days"}]}
+        }
 
-@app.get("/health", tags=["DevOps"])
-async def check_health():
-    """Consistent CI/CD health check endpoint."""
-    return {"status": "ok"}
-
-# ---------------------------------------------------------
-# DIRECT CONTROLLER PIPING
-# We directly pipe the asynchronous endpoint functional logic 
-# avoiding duplication and strictly fulfilling "modular" logic
-# ---------------------------------------------------------
-
-@app.post("/check-interaction", response_model=InteractionResponse, tags=["Safety"])
-async def route_check_interaction(request: InteractionRequest):
-    """Executes combinatorial interaction prediction synchronously via imported logic state."""
-    return await check_interaction_endpoint(request)
-
-
-@app.post("/ai-evaluate", response_model=AiEvaluateResponse, tags=["Orchestration Engine"])
-async def route_ai_evaluate(request: AiEvaluateRequest):
-    """
-    Central API controller uniting NeuraMed's Microservices.
-    Implements a 'Safe Fallback' mechanism ensuring the UI remains functional 
-    even if underlying ML weights are missing or inputs are out-of-vocabulary.
-    """
+# --- 2. VOICE SYSTEM (SARVAM) ---
+@app.post("/api/voice/stt", tags=["Voice"])
+async def voice_stt(file: UploadFile = File(...), language_code: str = Form("en-IN")):
     try:
-        return await ai_evaluate_endpoint(request)
+        content = await file.read()
+        transcript = await speech_to_text(content, language_code)
+        return {"transcript": transcript}
     except Exception as e:
-        logger.warning(f"AI Orchestrator Fallback Triggered: {str(e)}")
-        # Return a "Neutral" assessment as required (none severity, 0.0 risk)
-        return AiEvaluateResponse(
-            interaction_alert={"interaction": False, "severity": "none"},
-            adherence_risk=0.0,
-            recommended_action="normal_reminder"
+        logger.error(f"Voice STT Failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/voice/tts", tags=["Voice"])
+async def voice_tts(text: str = Form(...), language_code: str = Form("hi-IN")):
+    try:
+        audio_content = await text_to_speech(text, language_code)
+        return StreamingResponse(io.BytesIO(audio_content), media_type="audio/wav")
+    except Exception as e:
+        logger.error(f"Voice TTS Failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/voice/interact", tags=["Voice Orchestration"])
+async def voice_interact(audio: UploadFile = File(...), language: str = Form("en-IN")):
+    """Full feedback loop: STT -> Intent -> TTS"""
+    try:
+        content = await audio.read()
+        # 1. STT
+        transcript = await speech_to_text(content, language)
+        if not transcript:
+            return {"status": "success", "transcript": "", "intent": "UNKNOWN", "message": "No speech detected"}
+
+        # 2. AI Intent Extraction (Simple logic for demonstration)
+        # In production, this would use the OpenAI client from ocr_service
+        from ocr_service import client as openai_client
+        prompt = f"The user said: '{transcript}'. Determine their intent (e.g., ADD_MEDICINE, CHECK_SAFETY, NAVIGATE_DASHBOARD) and provide a concise medical response."
+        
+        response = openai_client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}]
         )
+        ai_msg = response.choices[0].message.content
+        intent = "UNKNOWN" # Logic to parse intent from ai_msg
+        
+        # 3. TTS for response
+        resp_audio = await text_to_speech(ai_msg, "en-IN" if language == "en-IN" else "hi-IN")
+        import base64
+        audio_base64 = base64.b64encode(resp_audio).decode("utf-8")
+
+        return {
+            "status": "success",
+            "transcript": transcript,
+            "intent": intent,
+            "actionResult": {
+                "success": True,
+                "systemResponseText": ai_msg
+            },
+            "audioResponseBase64": audio_base64
+        }
+    except Exception as e:
+        logger.error(f"Voice Interaction Crash: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+from database_service import (
+    get_db, PatientDB, MedicineDB, AdherenceLogDB, ReminderDB,
+    PatientOut, MedicineOut, AdherenceLogOut, 
+    BulkMedicineCreate, ReminderCreate, ReminderOut
+)
+from sqlalchemy.orm import Session
+
+# ... (Existing lifespan and app setup)
+# --- 3. MEDICINE & DATABASE ---
+@app.get("/api/medicines", response_model=List[MedicineOut], tags=["Database"])
+async def get_medicines(patient_id: Optional[str] = None, db: Session = Depends(get_db)):
+    """Retrieve all medicines for a specific patient"""
+    if not patient_id:
+        return []
+    try:
+        p_id = int(patient_id)
+        return db.query(MedicineDB).filter(MedicineDB.patient_id == p_id).all()
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid patient_id format. Must be an integer.")
+
+@app.post("/api/medicines/bulk", tags=["Database"])
+async def add_medicines_bulk(request: BulkMedicineCreate, db: Session = Depends(get_db)):
+    """Bulk import medicines (typically from OCR)"""
+    try:
+        for med in request.medicines:
+            db_med = MedicineDB(
+                patient_id=request.patient_id,
+                name=med.get("name", "Unknown"),
+                dosage=med.get("dosage", "Not specified"),
+                frequency=med.get("frequency"),
+                timing=med.get("timing"),
+                status=med.get("status", "active")
+            )
+            db.add(db_med)
+        db.commit()
+        return {"status": "success", "count": len(request.medicines)}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+# --- 4. REMINDERS ---
+@app.post("/api/reminders", response_model=ReminderOut, tags=["Reminders"])
+async def create_reminder(reminder: ReminderCreate, db: Session = Depends(get_db)):
+    """Set a medication reminder"""
+    db_reminder = ReminderDB(**reminder.model_dump())
+    db.add(db_reminder)
+    db.commit()
+    db.refresh(db_reminder)
+    return db_reminder
+
+@app.get("/api/reminders", response_model=List[ReminderOut], tags=["Reminders"])
+async def get_reminders(patient_id: int, db: Session = Depends(get_db)):
+    """List all reminders for a patient"""
+    return db.query(ReminderDB).filter(ReminderDB.patient_id == patient_id).all()
+
+@app.post("/api/reminders/trigger-alert", tags=["Reminders"])
+async def trigger_reminder_alert(reminder_id: int, db: Session = Depends(get_db)):
+    """Manual trigger for system voice alert (Testing Flow)"""
+    reminder = db.query(ReminderDB).filter(ReminderDB.id == reminder_id).first()
+    if not reminder:
+        raise HTTPException(status_code=404, detail="Reminder not found")
+        
+    # Generate Voice Alert via TTS
+    alert_text = f"Hi, this is NeuraMed. It's time to take your {reminder.medicine_name}."
+    audio_content = await text_to_speech(alert_text, "en-IN")
+    import base64
+    audio_base64 = base64.b64encode(audio_content).decode("utf-8")
+    
+    return {
+        "status": "alert_triggered",
+        "message": alert_text,
+        "audio_base64": audio_base64
+    }
+
+# --- 5. AI & INTERACTIONS ---
+@app.post("/api/interactions", response_model=InteractionResponse, tags=["AI Safety"])
+async def check_interactions(request: InteractionRequest):
+    """Combinatorial interaction prediction"""
+    try:
+        rule_result = check_rule_based(request.drug1, request.drug2)
+        if rule_result:
+            return InteractionResponse(**rule_result)
+            
+        ml_prediction = predict_interaction(request.drug1, request.drug2)
+        return InteractionResponse(
+            interaction=ml_prediction["interaction"],
+            severity=ml_prediction["severity"],
+            source="ml"
+        )
+    except Exception as e:
+        logger.error(f"❌ Interaction Check Failure: {str(e)}")
+        return InteractionResponse(
+            interaction=False,
+            severity="none",
+            source="fallback-safe"
+        )
+
+@app.post("/api/ai/evaluate", response_model=AiEvaluateResponse, tags=["AI Orchestration"])
+async def ai_evaluate(request: AiEvaluateRequest):
+    """Full patient context AI evaluation"""
+    result = orchestrator.evaluate(request)
+    return AiEvaluateResponse(**result)
+
+# --- 6. HEALTH & UTILS ---
+@app.get("/health", tags=["DevOps"])
+async def health_check():
+    return {"status": "ok", "timestamp": time.time()}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
